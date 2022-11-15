@@ -9,7 +9,7 @@ hostname = str(socket.gethostname())
 PORT = 18443
 HOST = hostname
 Handler = http.server.SimpleHTTPRequestHandler
-with http.server.HTTPServer((HOST,PORT), Handler) as httpd:
+with http.server.HTTPServer(('0.0.0.0',PORT), Handler) as httpd:
     print(HOST, str(PORT))
     sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     sslcontext.load_cert_chain(keyfile="key.pem", certfile="cert.pem")
