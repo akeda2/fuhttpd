@@ -4,7 +4,7 @@ import http.server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import socketserver
 
-hostname = 'localhost'
+hostname = socket.gethostname()
 PORT = 18443
 HOST = hostname
 Handler = http.server.SimpleHTTPRequestHandler
