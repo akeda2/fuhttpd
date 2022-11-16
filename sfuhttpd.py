@@ -1,14 +1,14 @@
 import ssl
 import socket
 import http.server
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
 import socketserver
 
 hostname = str(socket.gethostname())
 #hostname = 'localhost'
-PORT = 18443
+PORT = 38443
 HOST = hostname
-Handler = http.server.SimpleHTTPRequestHandler
+Handler = SimpleHTTPRequestHandler
 with http.server.HTTPServer(('0.0.0.0',PORT), Handler) as httpd:
     print(HOST, str(PORT))
     sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
