@@ -3,10 +3,11 @@ Description=fuHTTPd http server
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /usr/local/bin/tsfuttpd.py
+ExecStart=/usr/bin/python3 /usr/local/bin/serv_fuhttpd.py /var/www/intra90/
 #ExecReload=/usr/local/apache2/bin/httpd -k graceful
 Type=notify
 Restart=always
+User=www-data
 
 [Install]
 WantedBy=default.target
