@@ -1,0 +1,13 @@
+[Unit]
+Description=fuHTTPd http server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/tsfuttpd.py
+#ExecReload=/usr/local/apache2/bin/httpd -k graceful
+Type=notify
+Restart=always
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
