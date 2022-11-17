@@ -1,3 +1,4 @@
+#!/usr/bin/python3 -u
 import ssl
 import socket
 import http.server
