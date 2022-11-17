@@ -12,18 +12,29 @@ hostname = str(socket.gethostname())
 PORT = 38443
 HOST = hostname
 
+def isdir(string):
+    if os.path.isdir(string):
+        return string
+    else:
+        raise NotADirectoryError(string)
+def getdir(string):
+    return os.getcwd()
+
 parser = argparse.ArgumentParser(description="fuHTTPd",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('directory', default=None, nargs='?', type=argparse.FileType('r'), help="Root directory if omitted - use current")
+parser.add_argument('path', type=isdir, nargs='?', help="Root directory if omitted - use current")
 args = parser.parse_args()
 config = vars(args)
 print(config)
-
-if os.path.isdir(args.directory.name):
+dir = args.path
+os.chdir(dir)
+'''
+if os.path.isdir(args.):
     dir = args.file.name
 else:
     print("NO DIRECTORY")
     exit
+'''
 
 Handler = SimpleHTTPRequestHandler
 with http.server.ThreadingHTTPServer(('0.0.0.0',PORT), Handler) as httpd:
