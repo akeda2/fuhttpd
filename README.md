@@ -2,13 +2,17 @@
 Small and simple http daemon in python.
 
 ### Usage:
-Using ssl.wrap_socket:
-```
-python3 fuhttpd.py
-```
-Using SSLContext:
+HTTPS using SSLContext:
 ```
 python3 sfuhttpd.py
+```
+HTTPS using ssl.wrap_socket:(old, just for reference)
+```
+python3 old_sfuhttpd.py
+```
+Using plain HTTP:
+```
+python3 fuhttpd.py
 ```
 Generate certs:
 ```
