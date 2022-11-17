@@ -14,13 +14,13 @@ HOST = hostname
 
 parser = argparse.ArgumentParser(description="fuHTTPd",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('file', default=None, nargs='?', type=argparse.FileType('r'), help="Root directory, if omitted - use current")
+parser.add_argument('directory', default=None, nargs='?', type=argparse.FileType('r'), help="Root directory if omitted - use current")
 args = parser.parse_args()
 config = vars(args)
 print(config)
 
-if os.path.isdir(args.file.name):
-    directory = args.file.name
+if os.path.isdir(args.directory.name):
+    dir = args.file.name
 else:
     print("NO DIRECTORY")
     exit
