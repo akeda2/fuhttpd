@@ -27,7 +27,7 @@ args = parser.parse_args()
 config = vars(args)
 print(config)
 dir = args.path
-os.chdir(dir)
+
 '''
 if os.path.isdir(args.):
     dir = args.file.name
@@ -42,4 +42,5 @@ with http.server.ThreadingHTTPServer(('0.0.0.0',PORT), Handler) as httpd:
     sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     sslcontext.load_cert_chain(keyfile="key.pem", certfile="cert.pem")
     httpd.socket = sslcontext.wrap_socket(httpd.socket, server_side=True)
+    os.chdir(dir)
     httpd.serve_forever()
