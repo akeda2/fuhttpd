@@ -4,9 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 -u /usr/local/bin/serv_fuhttpd.py /var/www/intra90/
+WorkingDirectory=/usr/local/bin
+ExecStart=/bin/bash -c '/usr/bin/python3 -u /usr/local/bin/serv_fuhttpd.py /var/www/intra90/'
 #ExecReload=/usr/local/apache2/bin/httpd -k graceful
-Type=notify
+#Type=notify
 Restart=always
 User=www-data
 #User=root
