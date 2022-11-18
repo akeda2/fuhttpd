@@ -13,8 +13,8 @@ httpsport=38443
 httpport=38080
 PORT = 38443
 HOST = hostname
-certpath=str(os.path.realpath("cert.pem"))
-keypath=str(os.path.realpath("key.pem"))
+#certpath=str(os.path.realpath("cert.pem"))
+#keypath=str(os.path.realpath("key.pem"))
 
 def isdir(string):
     if os.path.isdir(string):
@@ -35,6 +35,10 @@ print(config)
 dir = args.path
 
 Handler = SimpleHTTPRequestHandler
+
+if not args.plain:
+    certpath=str(os.path.realpath("cert.pem"))
+    keypath=str(os.path.realpath("key.pem"))
 
 if args.plain:
     if args.port:
