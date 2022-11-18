@@ -2,7 +2,7 @@
 #
 # Will install fuhttpd in /usr/local/bin and service in /etc/systemd/system
 
-[ -f serv_fuhttpd.py ] && sudo cp serv_fuhttpd.py /usr/local/bin/
+[ -f fuhttpd.py ] && sudo cp fuhttpd.py /usr/local/bin/
 [ -f cert.pem ] && sudo cp cert.pem /usr/local/bin/
 [ -f key.pem ] && sudo cp key.pem /usr/local/bin/
 chmod a+r cert.pem
