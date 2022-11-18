@@ -4,25 +4,28 @@ Small and simple http daemon in python.
 ### Usage:
 ```
 $ python3 fuhttpd.py -h
-usage: fuhttpd.py [-h] [-p] [path]
+usage: fuhttpd.py [-h] [-P] [-p PORT] [path]
 
 fuHTTPd
 
 positional arguments:
-  path         Root directory. If omitted - use current (default: None)
+  path                  Root directory. If omitted - use current (default:
+                        None)
 
 optional arguments:
-  -h, --help   show this help message and exit
-  -p, --plain  Use plain HTTP (default: False)
+  -h, --help            show this help message and exit
+  -P, --plain           Use plain HTTP (default: False)
+  -p PORT, --port PORT  Use custom port (default: None)
 ```
 ```
 HTTPS (default):
 python3 fuhttpd.py
+python3 fuhttpd.py -p/--port XXXXX
 python3 fuhttpd.py /path/to/web/root
 
 Plain HTTP:
-python3 fuhttpd.py -p/--plain
-python3 fuhttpd.py -p/--plain /path/to/web/root
+python3 fuhttpd.py -P/--plain
+python3 fuhttpd.py -P/--plain /path/to/web/root
 ```
 ### Systemd service:
 ```
