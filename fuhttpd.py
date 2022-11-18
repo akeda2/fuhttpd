@@ -26,33 +26,31 @@ def getdir(string):
 
 parser = argparse.ArgumentParser(description="fuHTTPd",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('path', type=isdir, nargs='?', help="Root directory if omitted - use current")
-parser.add_argument('-p', '--plain', action='store_true', default=False, help="Use plain HTTP")
+parser.add_argument('path', type=isdir, nargs='?', help="Root directory. If omitted - use current")
+parser.add_argument('-P', '--plain', action='store_true', default=False, help="Use plain HTTP")
+parser.add_argument('-p', '--port', type=int, help="Use custom port")
 args = parser.parse_args()
 config = vars(args)
 print(config)
 dir = args.path
 
-'''
-if os.path.isdir(args.):
-    dir = args.file.name
-else:
-    print("NO DIRECTORY")
-    exit
-'''
-
-
 Handler = SimpleHTTPRequestHandler
 
 if args.plain:
-    PORT = httpport
+    if args.port:
+        PORT = args.port
+    else:
+        PORT = httpport
     with socketserver.ThreadingTCPServer(("", PORT), Handler) as phttpd:
         print(HOST, str(PORT))
         if args.path:
             os.chdir(dir)
         phttpd.serve_forever()
 else:
-    PORT = httpsport
+    if args.port:
+        PORT = args.port
+    else:
+        PORT = httpsport
     with http.server.ThreadingHTTPServer(('0.0.0.0',PORT), Handler) as httpd:
         print(HOST, str(PORT))
         sslcontext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
