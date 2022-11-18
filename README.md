@@ -1,5 +1,6 @@
 # fuhttpd
-Small and simple http daemon in python.
+Small and simple http daemon in python using SimpleHTTPRequestHandler.
+I would not use this on the open internet...
 
 ### Usage:
 ```
