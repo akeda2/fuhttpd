@@ -9,12 +9,12 @@ import platform
 import os
 
 hostname = str(socket.gethostname())
+HOST = hostname
+
+# Default ports:
 httpsport=38443
 httpport=38080
-PORT = 38443
-HOST = hostname
-#certpath=str(os.path.realpath("cert.pem"))
-#keypath=str(os.path.realpath("key.pem"))
+PORT = httpsport
 
 def isdir(string):
     if os.path.isdir(string):
@@ -36,21 +36,24 @@ dir = args.path
 
 Handler = SimpleHTTPRequestHandler
 
+# Cert and key should be in the WorkingDirectory - NOT in webroot!
 if not args.plain:
     certpath=str(os.path.realpath("cert.pem"))
     keypath=str(os.path.realpath("key.pem"))
 
 if args.plain:
+    # -P Plain HTTP server with no encryption
     if args.port:
         PORT = args.port
     else:
         PORT = httpport
-    with socketserver.ThreadingTCPServer(("", PORT), Handler) as phttpd:
+    with socketserver.ThreadingTCPServer(('0.0.0.0', PORT), Handler) as phttpd:
         print(HOST, str(PORT))
         if args.path:
             os.chdir(dir)
         phttpd.serve_forever()
 else:
+    # HTTPS using ssl.SSLContext.wrap_socket()
     if args.port:
         PORT = args.port
     else:
