@@ -3,6 +3,20 @@ Small and simple http daemon in python.
 
 ### Usage:
 ```
+$ python3 fuhttpd.py -h
+usage: fuhttpd.py [-h] [-p] [path]
+
+fuHTTPd
+
+positional arguments:
+  path         Root directory. If omitted - use current (default: None)
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -p, --plain  Use plain HTTP (default: False)
+```
+```
+HTTPS (default):
 python3 fuhttpd.py
 python3 fuhttpd.py /path/to/web/root
 
