@@ -7,7 +7,6 @@ import socketserver
 import argparse
 import platform
 import os
-from multiprocessing import Process
 
 hostname = str(socket.gethostname())
 HOST = hostname
@@ -66,9 +65,4 @@ else:
         httpd.socket = sslcontext.wrap_socket(httpd.socket, server_side=True)
         if args.path:
             os.chdir(dir)
-#        httpd.serve_forever()
-
-    # Create a process for each CPU core
-        for i in range(os.cpu_count()):
-            p = Process(target=httpd.serve_forever)
-            p.start()
+        httpd.serve_forever()
