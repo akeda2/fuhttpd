@@ -30,12 +30,26 @@ parser = argparse.ArgumentParser(description="fuHTTPd",
 parser.add_argument('path', type=isdir, nargs='?', help="Root directory. If omitted - use current")
 parser.add_argument('-P', '--plain', action='store_true', default=False, help="Use plain HTTP")
 parser.add_argument('-p', '--port', type=int, help="Use custom port")
+parser.add_argument('-d', '--dirlist', action='store_true', default=False, help="Allow directory listings")
 args = parser.parse_args()
 config = vars(args)
 print(config)
 dir = args.path
 
-Handler = SimpleHTTPRequestHandler
+# Do we want to allow directory listing? If so, use default handler settings.
+if args.dirlist:
+    Handler = SimpleHTTPRequestHandler
+else:
+# If not, override with 404 on '/'-requests
+    class Handler(SimpleHTTPRequestHandler):
+        def do_GET(self):
+            # If the request is for a directory, return a 404 "Not Found" response
+            if self.path.endswith("/"):
+                self.send_error(404, "Not Found")
+                return
+        
+            # Otherwise, use the default behavior for handling requests for files
+            super().do_GET()
 
 # Cert and key should be in the WorkingDirectory - NOT in webroot!
 if not args.plain:
