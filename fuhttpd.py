@@ -37,19 +37,44 @@ print(config)
 dir = args.path
 
 # Do we want to allow directory listing? If so, use default handler settings.
-if args.dirlist:
+if not args.dirlist:
     Handler = SimpleHTTPRequestHandler
 else:
 # If not, override with 404 on '/'-requests
     class Handler(SimpleHTTPRequestHandler):
-        def do_GET(self):
+        def translate_path(self, path):
+        # Check if the request path is a directory
+            if os.path.isdir(path):
+                # Check if the directory is empty
+                #if not os.listdir(path):
+                    # If the directory is empty, serve index.html
+                return os.path.join(path, 'index.html')
+                #else:
+                    # If the directory is not empty, return an error
+                 #   raise ValueError("Directory listings are not allowed")
+
+            # Otherwise, continue with the default behavior
+            else:
+                return super().translate_path(path)
+
+#        def do_GET(self):
+#            if os.path.isdir(self.path):
+#                # Check for index.html
+#                index_path = os.path.join(os.getcwd(), self.path, 'index.html')
+#		print(index_path)
+#                if os.path.exists(index_path):
+#                    self.path = index_path
+#                else:
+#                    self.send_error(404, index_path)#"Directory listings are not allowed")
+#                    return
+
             # If the request is for a directory, return a 404 "Not Found" response
-            if self.path.endswith("/"):
-                self.send_error(404, "Not Found")
-                return
+#            if self.path.endswith("/"):
+#                self.send_error(404, "Not Found")
+#                return
         
             # Otherwise, use the default behavior for handling requests for files
-            super().do_GET()
+#            super().do_GET()
 
 # Cert and key should be in the WorkingDirectory - NOT in webroot!
 if not args.plain:
