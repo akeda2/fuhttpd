@@ -91,7 +91,10 @@ if args.plain:
         print(HOST, str(PORT))
         if args.path:
             os.chdir(dir)
-        phttpd.serve_forever()
+#        phttpd.serve_forever()
+        for i in range(os.cpu_count()):
+            p = Process(target=phttpd.serve_forever)
+            p.start()
 else:
     # HTTPS using ssl.SSLContext.wrap_socket()
     if args.port:
