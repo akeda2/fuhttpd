@@ -40,12 +40,10 @@ dir = args.path
 if not args.dirlist:
 #    Handler = SimpleHTTPRequestHandler
     class Handler(SimpleHTTPRequestHandler):
-        def do_LIST(self):
-            pass
+#        def do_LIST(self):
+#            pass
         def list_directory(self, path):
             self.send_error(404, "Directory listing not allowed")
-
-
 else:
     Handler = SimpleHTTPRequestHandler
 # If not, override with 404 on '/'-requests
