@@ -38,24 +38,32 @@ dir = args.path
 
 # Do we want to allow directory listing? If so, use default handler settings.
 if not args.dirlist:
-    Handler = SimpleHTTPRequestHandler
-else:
-# If not, override with 404 on '/'-requests
+#    Handler = SimpleHTTPRequestHandler
     class Handler(SimpleHTTPRequestHandler):
-        def translate_path(self, path):
+        def do_LIST(self):
+            pass
+        def list_directory(self, path):
+            self.send_error(404, "Directory listing not allowed")
+
+
+else:
+    Handler = SimpleHTTPRequestHandler
+# If not, override with 404 on '/'-requests
+#    class Handler(SimpleHTTPRequestHandler):
+#        def translate_path(self, path):
         # Check if the request path is a directory
-            if os.path.isdir(path):
+#            if os.path.isdir(path):
                 # Check if the directory is empty
                 #if not os.listdir(path):
                     # If the directory is empty, serve index.html
-                return os.path.join(path, 'index.html')
+#                return os.path.join(path, 'index.html')
                 #else:
                     # If the directory is not empty, return an error
                  #   raise ValueError("Directory listings are not allowed")
 
             # Otherwise, continue with the default behavior
-            else:
-                return super().translate_path(path)
+#            else:
+#                return super().translate_path(path)
 
 #        def do_GET(self):
 #            if os.path.isdir(self.path):
