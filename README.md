@@ -43,19 +43,3 @@ or:
 openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
 Copy or symlink these to your working directory or run install.sh if you like the defaults (/usr/local/bin).
 ```
-
-## Legacy:
-HTTPS using SSLContext:
-```
-With threading:
-python3 tsfuhttpd.py
-Without:
-python3 sfuhttpd.py
-```
-Using plain HTTP:
-```
-With threading:
-python3 tfuhttpd.py
-Without:
-python3 fuhttpd.py
-```
