@@ -2,7 +2,7 @@
 Small and simple http daemon in python using SimpleHTTPRequestHandler.
 I would not use this on the open internet...
 
-### Usage:
+## Usage:
 ```
 $ python3 fuhttpd.py -h
 usage: fuhttpd.py [-h] [-P] [-p PORT] [-d] [path]
@@ -19,6 +19,7 @@ optional arguments:
   -p PORT, --port PORT  Use custom port (default: None)
   -d, --dirlist         Allow directory listings (default: False)
 ```
+### Examples:
 ```
 HTTPS (default):
 python3 fuhttpd.py
@@ -29,12 +30,26 @@ Plain HTTP:
 python3 fuhttpd.py -P/--plain
 python3 fuhttpd.py -P/--plain /path/to/web/root
 ```
+### Installer shell script:
+```
+Run shell script:
+./install.sh
+
+This will set up systemd services for https or http (or both) and optionally start them.
+Webroot is "/var/www/html" by default. If your webroot is somewhere else, just maka a symlink.
+```
 ### Systemd service:
 ```
-Edit fuhttpd.service with your path then:
+fuhttpd.service - https on port 443
+plain-fuhttpd.service - plain http on port 80
+
+Edit these to your liking, then...:
+
 sudo cp fuhttpd.service /etc/systemd/system
 sudo systemctl enable fuhttpd.service
 sudo systemctl start fuhttpd.service
+
+...and the same goes for plain-fuhttpd.service.
 ```
 ### Generate certs:
 ```
