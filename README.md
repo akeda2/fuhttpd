@@ -5,7 +5,7 @@ I would not use this on the open internet...
 ### Usage:
 ```
 $ python3 fuhttpd.py -h
-usage: fuhttpd.py [-h] [-P] [-p PORT] [path]
+usage: fuhttpd.py [-h] [-P] [-p PORT] [-d] [path]
 
 fuHTTPd
 
@@ -17,6 +17,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -P, --plain           Use plain HTTP (default: False)
   -p PORT, --port PORT  Use custom port (default: None)
+  -d, --dirlist         Allow directory listings (default: False)
 ```
 ```
 HTTPS (default):
