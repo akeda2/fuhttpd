@@ -38,12 +38,11 @@ dir = args.path
 
 # Do we want to allow directory listing? If so, use default handler settings.
 if not args.dirlist:
-#    Handler = SimpleHTTPRequestHandler
     class Handler(SimpleHTTPRequestHandler):
 #        def do_LIST(self):
 #            pass
         def list_directory(self, path):
-            self.send_error(404, "Directory listing not allowed")
+            self.send_error(404, "File not found")
 else:
     Handler = SimpleHTTPRequestHandler
 # If not, override with 404 on '/'-requests
@@ -82,7 +81,8 @@ else:
             # Otherwise, use the default behavior for handling requests for files
 #            super().do_GET()
 
-# Cert and key should be in the WorkingDirectory - NOT in webroot!
+# Cert and key should be in the WorkingDirectory (default: /usr/local/bin/) - NOT in webroot!
+# I may change this and add an option for custom placement, but I don't need it now...
 if not args.plain:
     certpath=str(os.path.realpath("cert.pem"))
     keypath=str(os.path.realpath("key.pem"))
@@ -98,6 +98,8 @@ if args.plain:
         if args.path:
             os.chdir(dir)
 #        phttpd.serve_forever()
+
+    # Create a process for each CPU core
         for i in range(os.cpu_count()):
             p = Process(target=phttpd.serve_forever)
             p.start()
