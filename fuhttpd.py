@@ -2,8 +2,8 @@
 import ssl
 import socket
 import http.server
-from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
-import socketserver
+from http.server import HTTPServer, SimpleHTTPRequestHandler # BaseHTTPRequestHandler
+#import socketserver
 import argparse
 import platform
 import os
