@@ -93,18 +93,19 @@ if args.plain:
         PORT = args.port
     else:
         PORT = httpport
-    with socketserver.ThreadingTCPServer(('0.0.0.0', PORT), Handler) as phttpd:
+    # Replaced socketserver.ThreadingTCPServer
+    with http.server.ThreadingHTTPServer(('0.0.0.0', PORT), Handler) as phttpd:
         print(HOST, str(PORT))
         if args.path:
             os.chdir(dir)
 #        phttpd.serve_forever()
 
-    # Create a process for each CPU core
+    # Create a process for each CPU core (or SMT thread):
         for i in range(os.cpu_count()):
             p = Process(target=phttpd.serve_forever)
             p.start()
 else:
-    # HTTPS using ssl.SSLContext.wrap_socket()
+    # HTTPS using ssl.SSLContext.wrap_socket():
     if args.port:
         PORT = args.port
     else:
@@ -118,7 +119,7 @@ else:
             os.chdir(dir)
 #        httpd.serve_forever()
 
-    # Create a process for each CPU core
+    # Create a process for each CPU core (or SMT thread):
         for i in range(os.cpu_count()):
             p = Process(target=httpd.serve_forever)
             p.start()
