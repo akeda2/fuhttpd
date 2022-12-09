@@ -6,11 +6,16 @@ WEBROOT="/var/www/html/"
 cont () {
         #Reads from input and returns true/false
         # Ex: cont && do something
-#        [ -z "$1" ] && 1="Continue?"
-        read -p "$1? (y/n): " -n 1 -r
+        if [ -z "$1" ]; then
+		prompt="Continue"
+	else
+		prompt="$1"
+	fi
+        read -p "$prompt\? (y/n): " -n 1 -r
         echo    # (optional) move to a new line
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-                return
+                #exit 0 #
+		return
         else
                 false
         fi
