@@ -1,0 +1,6 @@
+cert: /usr/local/share/ca-certificates/cert.pem
+dirlist: false
+key: /usr/local/share/ca-certificates/key.pem
+path: /home/akeda/dev/fuhttpd
+plain: false
+port: 38443
