@@ -62,6 +62,8 @@ try:
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
         certpath = args.cert if args.cert else config['cert']
+        print(certpath)
+        print(keypath)
         keypath = args.key if args.key else  config['key']
         args.plain = args.plain if args.plain else config['plain']
         args.dirlist = args.dirlist if args.dirlist else config['dirlist']
