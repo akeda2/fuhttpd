@@ -42,6 +42,7 @@ try:
                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('path', type=isdir, nargs='?', help="Root directory. If omitted - use current")
     parser.add_argument('-P', '--plain', action='store_true', default=False, help="Use plain HTTP")
+    parser.add_argument('-S', '--https', action='store_true', default=True, help="Use HTTPS")
     parser.add_argument('-p', '--port', type=int, help="Use custom port")
     parser.add_argument('-d', '--dirlist', action='store_true', default=False, help="Allow directory listings")
     parser.add_argument('-c', '--cert', type=str, help="Use certificate")
@@ -56,16 +57,16 @@ try:
     # Load config from yaml file:
     if args.load and not args.save:
         print(args.load)
-        config_path = os.path.normpath('.fuhttpd.yaml')# if args.load else os.path.normpath('.fuhttpd.yaml')
+        config_path = args.load #os.path.normpath('.fuhttpd.yaml') if args.load else os.path.normpath('.fuhttpd.yaml')
 
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
-        certpath = config['cert']
-        keypath = config['key']
-        args.plain = config['plain']
-        args.dirlist = config['dirlist']
-        args.path = config['path']
-        args.port = config['port']
+        certpath = args.cert if args.cert else config['cert']
+        keypath = args.key if args.key else  config['key']
+        args.plain = args.plain if args.plain else config['plain']
+        args.dirlist = args.dirlist if args.dirlist else config['dirlist']
+        args.path = args.path if args.path else config['path']
+        args.port = args.port if args.port else config['port']
         print(config)
     dir = args.path
     # Save config to yaml file:
