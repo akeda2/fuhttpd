@@ -2,6 +2,7 @@
 #
 # Will install fuhttpd in /usr/local/bin and service in /etc/systemd/system
 WEBROOT="/var/www/html/"
+CERTDIR="/usr/local/share/ca-certificates"
 
 cont () {
         #Reads from input and returns true/false
@@ -23,9 +24,9 @@ cont () {
 
 INSTALLDIR="/usr/local/bin"
 
-[ -f fuhttpd.py ] && sudo cp fuhttpd.py "$INSTALLDIR" || echo "fuhttpd.py not found! Where are we running this from?"
-[ -f cert.pem ] && sudo cp cert.pem "$INSTALLDIR" || echo "No cert.pem, please generate!"
-[ -f key.pem ] && sudo cp key.pem "$INSTALLDIR" || echo "No key.pem, please generate!"
+[ -f fuhttpd.py ] && sudo cp fuhttpd.py "$INSTALLDIR" && sudo ln -s "$INSTALLDIR"/fuhttpd.py "$INSTALLDIR"/fuhttpd || echo "fuhttpd.py not found! Where are we running this from?"
+[ -f cert.pem ] && sudo cp cert.pem "$CERTDIR" || echo "No cert.pem, please generate!"
+[ -f key.pem ] && sudo cp key.pem "$CERTDIR" || echo "No key.pem, please generate!"
 
 sudo useradd --system --shell=/usr/sbin/nologin www-data || echo "ERROR! User already exists...?"
 
