@@ -1,11 +1,11 @@
 # fuhttpd Makefile
 # 
 
-all: randrn del
+all: fuhttpd del
 # readme
 
 # Create fuhttpd executable
-randrn:
+fuhttpd:
 	pyinstaller --clean fuhttpd.py -F
 	mv dist/fuhttpd .
 
